@@ -21,7 +21,7 @@ contract Library {
 
     mapping(uint256 => Book) public books;
     mapping(address => mapping(uint256 => bool)) public hasBorrowed;
-    mapping(address => uint256[]) private borrowedBooks;
+    mapping(address => uint256[]) public borrowedBooks;
 
     event BookAdded(uint256 indexed ID, string title, string author, uint256 copies);
     event BookBorrowed(address indexed user, uint256 indexed ID);
