@@ -28,7 +28,9 @@ contract LibraryTestContract is Test {
 
     function testUserAddBook() public {
         vm.prank(user1);
-        vm.expectRevert(abi.encodeWithSelector(Library.NotLibrarian.selector, "Only The Librarian Can Call This Function"));
+        vm.expectRevert(
+            abi.encodeWithSelector(Library.NotLibrarian.selector, "Only The Librarian Can Call This Function")
+        );
         Lib.addBook("Htiler: The Legend", "Emmanuel Nzuebe", 1);
     }
 
@@ -42,7 +44,7 @@ contract LibraryTestContract is Test {
 
         vm.prank(user1);
         Lib.borrowBook(0);
-        uint available = Lib.getAvailableCopies(0);
+        uint256 available = Lib.getAvailableCopies(0);
         assertEq(available, 2);
 
         vm.prank(user1);
@@ -74,7 +76,6 @@ contract LibraryTestContract is Test {
         Lib.addBook("Animal Farm", "George Orwell", 5);
         Lib.addBook("Htiler: The Legend", "Emmanuel Nzuebe", 30);
         Lib.addBook("The Subtle Art of Not Giving a F*ck", "Mark Manson", 1);
-
 
         vm.prank(user1);
         Lib.borrowBook(0);

@@ -31,7 +31,7 @@ contract Library {
         Librarian = msg.sender;
     }
 
-     modifier OnlyLibrarian() {
+    modifier OnlyLibrarian() {
         if (msg.sender != Librarian) revert NotLibrarian("Only The Librarian Can Call This Function");
         _;
     }
@@ -44,12 +44,7 @@ contract Library {
     function addBook(string calldata _title, string calldata _author, uint256 _copies) external OnlyLibrarian {
         if (_copies == 0) revert InvalidCopies("Must Have At Least 1 Copy");
 
-        books[nextBookId] = Book({
-            id: nextBookId,
-            title: _title,
-            author: _author,
-            copies: _copies
-        });
+        books[nextBookId] = Book({id: nextBookId, title: _title, author: _author, copies: _copies});
 
         emit BookAdded(nextBookId, _title, _author, _copies);
 
