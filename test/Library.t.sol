@@ -18,7 +18,6 @@ contract LibraryTestContract is Test {
     }
 
     function testAddBook() public {
-        vm.prank(librarian);
         Lib.addBook("The White Wizard", "Tade Adegbindin", 5);
 
         (,, string memory author, uint256 copies) = Lib.books(0);
@@ -31,7 +30,7 @@ contract LibraryTestContract is Test {
         vm.expectRevert(
             abi.encodeWithSelector(Library.NotLibrarian.selector, "Only The Librarian Can Call This Function")
         );
-        Lib.addBook("Htiler: The Legend", "Emmanuel Nzuebe", 1);
+        Lib.addBook("Hitler: The Legend", "Emmanuel Nzuebe", 1);
     }
 
     function testAddBookZeroCopies() public {
@@ -73,8 +72,9 @@ contract LibraryTestContract is Test {
     }
 
     function testGetUserBorrowedBooks() public {
+        Lib.addBook("The Tales Of Odumeje", "DokaIzk", 200);
         Lib.addBook("Animal Farm", "George Orwell", 5);
-        Lib.addBook("Htiler: The Legend", "Emmanuel Nzuebe", 30);
+        Lib.addBook("Hitler: The Legend", "Emmanuel Nzuebe", 30);
         Lib.addBook("The Subtle Art of Not Giving a F*ck", "Mark Manson", 1);
 
         vm.prank(user1);
@@ -86,7 +86,10 @@ contract LibraryTestContract is Test {
         vm.prank(user1);
         Lib.borrowBook(2);
 
+        vm.prank(user1);
+        Lib.borrowBook(3);
+
         uint256[] memory borrowed = Lib.getUserBorrowedBooks(user1);
-        assertEq(borrowed.length, 3);
+        assertEq(borrowed.length, 4);
     }
 }

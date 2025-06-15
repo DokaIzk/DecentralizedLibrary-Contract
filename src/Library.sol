@@ -12,6 +12,7 @@ contract Library {
     error AlreadyBorrowed(string reason);
     error NotBorrowedYet(string reason);
 
+    // Correct Below
     struct Book {
         uint256 id;
         string title;
